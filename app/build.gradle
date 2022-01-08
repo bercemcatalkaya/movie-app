@@ -1,0 +1,96 @@
+apply plugin : Plugins.androidApplication
+apply plugin : Plugins.kotlinAndroid
+apply plugin : Plugins.kotlinKapt
+apply plugin : Plugins.navigationPlugin
+apply plugin : Plugins.hiltPlugin
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        applicationId Configs.applicationId
+        minSdk Configs.minSdkVersion
+        targetSdk Configs.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner Configs.testInstrumentationRunner
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    implementation Dependencies.kotlin
+    implementation Dependencies.appCompat
+    implementation Dependencies.materialLib
+    implementation Dependencies.constrainLayout
+    testImplementation Dependencies.junit
+    androidTestImplementation Dependencies.androidTest
+    androidTestImplementation Dependencies.espressoCore
+
+    //Retrofit
+    implementation Dependencies.retrofit
+    implementation Dependencies.gsonConverter
+
+    //Room
+    implementation Dependencies.room
+    annotationProcessor Dependencies.roomCompiler
+    implementation Dependencies.roomKotlin
+    kapt Dependencies.roomCompiler
+    implementation Dependencies.roomPaging
+
+    //Navigation
+    implementation Dependencies.navigation
+    implementation Dependencies.navigationUi
+
+    //Coroutines
+    implementation Dependencies.coroutines
+
+    //Glide
+    implementation Dependencies.glide
+    annotationProcessor Dependencies.glideCompiler
+
+    //Lifecycle
+    implementation Dependencies.viewModel
+    implementation Dependencies.liveData
+    kapt Dependencies.lifeCycleCompiler
+    implementation Dependencies.viewModelSavedState
+
+    //Fragment
+    implementation Dependencies.fragment
+
+    //Hilt
+    implementation Dependencies.hilt
+    kapt Dependencies.hiltCompiler
+
+    //Lotties
+    implementation Dependencies.lottie
+
+    //Scalable Size Units
+    implementation Dependencies.scalableSizeUnit
+    implementation Dependencies.scalableSizeUnitForTexts
+
+    //Paging
+    implementation Dependencies.paging
+}
+kapt {
+    correctErrorTypes = true
+}
