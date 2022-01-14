@@ -5,31 +5,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
-import com.example.movieapp.R
 import com.example.movieapp.adapter.PopularMovieAdapter
+import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.FragmentHomeBinding
 import com.example.movieapp.viewmodel.MovieViewModel
-import dagger.hilt.EntryPoint
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.reflect.Constructor
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     private lateinit var binding : FragmentHomeBinding
-
-    @Inject
-    lateinit var popularMovieAdapter : PopularMovieAdapter
+    private lateinit var popularMovieAdapter : PopularMovieAdapter
     private val viewModel by viewModels<MovieViewModel>()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,12 +33,24 @@ class HomeFragment : Fragment() {
         viewModel.popularMoviesList.observe(viewLifecycleOwner,{
             popularMovieAdapter.submitData(viewLifecycleOwner.lifecycle,it)
         })
+
+        viewModel.favoriteMoviesList.observe(viewLifecycleOwner,{
+
+        })
     }
 
     private fun initPopularMovieRecyclerView() {
+        popularMovieAdapter = PopularMovieAdapter(viewModel)
         binding.popularRecyclerView.apply {
             adapter = popularMovieAdapter
             layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
         }
+    }
+
+    override fun onItemClick(movie: Movie?, status : Boolean) {
+        if( status )
+            viewModel.insertMovie(movie!!)
+        else
+            viewModel.deleteMovie(movie!!)
     }
 }

@@ -6,22 +6,28 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.RequestManager
+import com.example.movieapp.R
 import com.example.movieapp.common.utils.Constants.IMAGE_URL
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.PopularListItemBinding
-import javax.inject.Inject
+import com.example.movieapp.viewmodel.MovieViewModel
 
-class PopularMovieAdapter @Inject constructor(
-  val glide : RequestManager
+class PopularMovieAdapter(
+    private val viewModel : MovieViewModel
 ) : PagingDataAdapter<Movie,PopularMovieAdapter.MovieViewHolder>(DIFF_CALLBACK) {
 
+    interface OnItemClickListener {
+        fun onItemClick(movie: Movie?, status : Boolean)
+    }
     inner class MovieViewHolder(private val binding: PopularListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(currentMovie : Movie?) {
             binding.apply {
-                    glide.load("$IMAGE_URL${currentMovie?.poster_path}")
+                Glide.with(itemView)
+                    .load("$IMAGE_URL${currentMovie?.poster_path}")
                         .into(binding.popularMovieImageView)
+
+                populateFavorite(currentMovie,binding)
             }
         }
     }
@@ -36,6 +42,34 @@ class PopularMovieAdapter @Inject constructor(
             PopularListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
 
+    private fun populateFavorite(currentMovie: Movie?, binding: PopularListItemBinding){
+        if( viewModel.favoriteMoviesList.value?.find {
+                it.id == currentMovie?.id } == null)
+        {
+            currentMovie?.favoriteStatus = false
+            binding.favoriteImageView.setImageResource(R.drawable.ic_favorite)
+        }
+        else
+        {
+            currentMovie?.favoriteStatus = true
+            binding.favoriteImageView.setImageResource(R.drawable.ic_favorite_filled)
+        }
+
+        binding.favoriteImageView.setOnClickListener{
+            if( currentMovie?.favoriteStatus == true ) {
+                currentMovie.favoriteStatus = false
+                viewModel.deleteMovie(currentMovie)
+                binding.favoriteImageView.setImageResource(R.drawable.ic_favorite)
+            }
+            else{
+                currentMovie?.favoriteStatus = true
+                if (currentMovie != null) {
+                    viewModel.insertMovie(currentMovie)
+                }
+                binding.favoriteImageView.setImageResource(R.drawable.ic_favorite_filled)
+            }
+        }
+    }
     companion object {
         private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Movie>(){
             override fun areItemsTheSame(oldItem: Movie, newItem: Movie): Boolean {

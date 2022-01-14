@@ -9,6 +9,7 @@ import com.example.movieapp.common.utils.Constants.TAG
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,8 +21,12 @@ class MovieViewModel @Inject constructor(
     val popularMoviesList : LiveData<PagingData<Movie>>
         get() = popularMovies
 
+    private var favoriteMovies : LiveData<List<Movie>>
+    val favoriteMoviesList : LiveData<List<Movie>>
+        get()  = favoriteMovies
     init{
         getPopularMovies()
+        favoriteMovies = movieRepository.favoriteMoviesList.asLiveData()
     }
 
     private fun getPopularMovies() {
@@ -35,5 +40,25 @@ class MovieViewModel @Inject constructor(
             Log.d(TAG,"Error occurred:${e.printStackTrace()}")
         }
         return data!!
+    }
+
+     fun insertMovie(selectedMovie : Movie){
+        viewModelScope.launch {
+            try {
+                movieRepository.insertMovie(selectedMovie)
+            } catch (e: Exception) {
+                Log.d(TAG, "Error occurred ${e.printStackTrace()}")
+            }
+        }
+    }
+
+    fun deleteMovie(selectedMovie: Movie){
+        viewModelScope.launch {
+            try {
+                movieRepository.deleteMovie(movie = selectedMovie)
+            } catch (e: java.lang.Exception){
+                Log.d(TAG,"Error occurred ${e.printStackTrace()}")
+            }
+        }
     }
 }

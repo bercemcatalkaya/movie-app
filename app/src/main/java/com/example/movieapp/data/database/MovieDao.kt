@@ -1,5 +1,6 @@
 package com.example.movieapp.data.database
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.movieapp.data.model.Movie
 import kotlinx.coroutines.flow.Flow
@@ -17,4 +18,7 @@ interface MovieDao {
 
     @Query("SELECT * FROM movies")
     fun getPopularMovies() : Flow<List<Movie>>
+
+    @Query("SELECT * FROM movies WHERE id = :movieId")
+    fun getMovieById(movieId : Int) : LiveData<Movie>
 }

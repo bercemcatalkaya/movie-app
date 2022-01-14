@@ -8,7 +8,8 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.movieapp.ui.fragment.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.example.movieapp.ui.fragment.FavoriteFragment"

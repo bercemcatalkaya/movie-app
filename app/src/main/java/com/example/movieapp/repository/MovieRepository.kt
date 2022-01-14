@@ -14,11 +14,15 @@ class MovieRepository @Inject constructor(
     private val movieRestInterface: MovieRestInterface,
     private val movieDao: MovieDao
 ){
+
+    val favoriteMoviesList = movieDao.getPopularMovies()
     suspend fun insertMovie(movie: Movie) =
         movieDao.insertMovie(movie)
 
     suspend fun deleteMovie(movie: Movie) =
         movieDao.deleteMovie(movie)
+
+    fun getMovieById(movieId : Int) = movieDao.getMovieById(movieId)
 
     fun getMovies(query: String) : Flow<PagingData<Movie>>{
             return Pager(

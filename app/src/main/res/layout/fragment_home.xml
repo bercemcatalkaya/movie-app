@@ -19,14 +19,13 @@
                 android:textColor="@color/yellow"
                 android:textSize="@dimen/_25ssp"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:layout_marginLeft="@dimen/_5sdp">
+                android:layout_marginStart="@dimen/_5sdp">
             </TextView>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/popularRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/popular_list_item">

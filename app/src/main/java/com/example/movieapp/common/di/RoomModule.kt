@@ -1,4 +1,4 @@
-package com.example.moviesapp.common.di
+package com.example.movieapp.common.di
 
 import android.content.Context
 import androidx.room.Room
@@ -21,7 +21,8 @@ object RoomModule {
             context.applicationContext,
             MovieDatabase::class.java,
             "movie-database"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
 
     @Provides
     @Singleton

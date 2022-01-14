@@ -12,7 +12,7 @@ class SplashActivity : AppCompatActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.animationView.alpha = 0F
-        binding.animationView.animate().setDuration(10000).alpha(1F).withEndAction {
+        binding.animationView.animate().setDuration(5000).alpha(1F).withEndAction {
             val startMainActivityIntent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(startMainActivityIntent)
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out)
