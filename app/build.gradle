@@ -90,7 +90,9 @@ dependencies {
 
     //Paging
     implementation Dependencies.paging
-    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
+
+
+    implementation Dependencies.circularProgressBar
 }
 kapt {
     correctErrorTypes = true

@@ -28,4 +28,6 @@ object Dependencies {
     const val lottie = "com.airbnb.android:lottie:${Versions.lottieVersion}"
     const val scalableSizeUnit  =  "com.intuit.sdp:sdp-android:${Versions.scalableSizeUnitVersion}"
     const val scalableSizeUnitForTexts = "com.intuit.ssp:ssp-android:${Versions.scalableSizeUnitVersion}"
+    const val circularProgressBar = "com.mikhaellopez:circularprogressbar:${Versions.circularProgressbarVersion}"
+    const val swipeGesture = "com.github.xabaras:RecyclerViewSwipeDecorator:${Versions.swipeGestureVersion}"
 }

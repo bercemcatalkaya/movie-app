@@ -18,4 +18,6 @@ object Versions {
     const val lottieVersion = "4.2.2"
     const val scalableSizeUnitVersion = "1.0.6"
     const val pagingVersion = "3.1.0"
+    const val circularProgressbarVersion = "3.1.0"
+    const val swipeGestureVersion = "1.3"
 }
