@@ -21,17 +21,30 @@ class MovieViewModel @Inject constructor(
     val popularMoviesList : LiveData<PagingData<Movie>>
         get() = popularMovies
 
-    private var favoriteMovies : LiveData<List<Movie>>
+    private var favoriteMovies : LiveData<List<Movie>> = movieRepository.favoriteMoviesList.asLiveData()
     val favoriteMoviesList : LiveData<List<Movie>>
         get()  = favoriteMovies
+
+    private lateinit var searchMovies : LiveData<PagingData<Movie>>
+    val searchMoviesList : LiveData<PagingData<Movie>>
+        get() = searchMovies
+
     init{
         getPopularMovies()
-        favoriteMovies = movieRepository.favoriteMoviesList.asLiveData()
     }
 
     private fun getPopularMovies() {
         popularMovies = getMoviesOf(POPULAR_URL)
     }
+
+    fun searchMovies(query : String) {
+        try{
+            searchMovies = movieRepository.searchMovies(query).asLiveData().cachedIn(viewModelScope)
+        }catch ( e: Exception){
+            Log.d(TAG,"Error occurred:${e.printStackTrace()}")
+        }
+    }
+
     private fun getMoviesOf(type: String) : LiveData<PagingData<Movie>>  {
         var data: LiveData<PagingData<Movie>>? = null
         try{

@@ -12,4 +12,11 @@ interface MovieRestInterface {
         @Query("api_key") apiKey : String,
         @Query("page") page : Int,
     ) : MovieResponse
+
+    @GET("search/movie/")
+    suspend fun getSearchMovie(
+        @Query("query") query : String,
+        @Query("api_key") apiKey : String,
+        @Query("page") page : Int
+    ) : MovieResponse
 }

@@ -4,13 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.13958333333333334" />
+        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2078125" />
         <entry key="app/src/main/res/drawable/bottomnavigation_color.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/circular_progress_bar.xml" value="0.1578125" />
         <entry key="app/src/main/res/drawable/ic_favorite.xml" value="0.146875" />
         <entry key="app/src/main/res/drawable/ic_favorite_border.xml" value="0.146875" />
         <entry key="app/src/main/res/drawable/ic_favorite_filled.xml" value="0.146875" />
         <entry key="app/src/main/res/drawable/ic_home.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2078125" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.2078125" />
+        <entry key="app/src/main/res/drawable/ic_search_view.xml" value="0.2078125" />
         <entry key="app/src/main/res/drawable/nav_item_color_state.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/drawable/search_view_background.xml" value="0.2078125" />
+        <entry key="app/src/main/res/drawable/selector_favorite_item.xml" value="0.2078125" />
         <entry key="app/src/main/res/drawable/selector_wishlist_item.xml" value="0.146875" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.12447916666666667" />
@@ -19,6 +25,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19519927536231885" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.19519927536231885" />
         <entry key="app/src/main/res/layout/popular_list_item.xml" value="0.24048913043478262" />
+        <entry key="app/src/main/res/layout/search_list_item.xml" value="0.22010869565217392" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24583333333333332" />
       </map>
     </option>

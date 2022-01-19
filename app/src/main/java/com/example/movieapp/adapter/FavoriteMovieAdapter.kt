@@ -1,5 +1,6 @@
 package com.example.movieapp.adapter
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,10 +11,12 @@ import com.example.movieapp.common.utils.Constants
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.FavoriteListItemBinding
 import java.text.SimpleDateFormat
+import java.util.*
 
 class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.FavoriteMovieViewHolder>() {
 
     inner class FavoriteMovieViewHolder(private val binding : FavoriteListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(currentMovie: Movie?) {
             binding.apply {
                 Glide.with(itemView)
@@ -55,10 +58,10 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.FavoriteM
     }
     var differ = AsyncListDiffer(this, comparator)
 
+    @SuppressLint("SimpleDateFormat")
     private fun getDateFormat(date : String) : String {
-        val inputFormat = SimpleDateFormat(date)
-        val outputFormat = SimpleDateFormat("dd.MM.yyyy")
-        val parsedDate = inputFormat.parse(date)
-        return outputFormat.format(parsedDate)
+        val initDate: Date? = SimpleDateFormat("yyyy-MM-dd").parse(date)
+        val formatter = SimpleDateFormat("dd-MM-yyyy")
+        return formatter.format(initDate!!)
     }
 }

@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.fragment.SearchFragment">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.SearchFragment"
+    android:orientation="vertical"
+    android:background="@color/black">
+    
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/movieSearchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_view_background"
+        app:queryHint="Search Movies..."
+        app:iconifiedByDefault="false"
+        app:queryBackground="@android:color/transparent"
+        app:searchIcon="@drawable/ic_search_view"
+        app:theme="@style/AppTheme.SearchView">
 
-    <TextView
+    </androidx.appcompat.widget.SearchView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/searchResultRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="@dimen/_30ssp"
-        android:textAlignment="center"/>
-
-</FrameLayout>
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+    </androidx.recyclerview.widget.RecyclerView>
+</LinearLayout>

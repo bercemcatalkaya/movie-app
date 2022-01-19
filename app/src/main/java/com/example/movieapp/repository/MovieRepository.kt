@@ -5,6 +5,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.movieapp.data.database.MovieDao
 import com.example.movieapp.data.datasource.MoviePagingDataSource
+import com.example.movieapp.data.datasource.SearchMoviePagingDataSource
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.data.network.retrofit.MovieRestInterface
 import kotlinx.coroutines.flow.Flow
@@ -34,5 +35,17 @@ class MovieRepository @Inject constructor(
                 pagingSourceFactory = {
                     MoviePagingDataSource(movieRestInterface, query) }
             ).flow
+    }
+
+    fun searchMovies(query : String) : Flow<PagingData<Movie>>{
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                maxSize = 100,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = {
+                SearchMoviePagingDataSource(movieRestInterface,query)
+            }).flow
     }
 }
