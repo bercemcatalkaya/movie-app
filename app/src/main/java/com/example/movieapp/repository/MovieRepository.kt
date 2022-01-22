@@ -23,8 +23,6 @@ class MovieRepository @Inject constructor(
     suspend fun deleteMovie(movie: Movie) =
         movieDao.deleteMovie(movie)
 
-    fun getMovieById(movieId : Int) = movieDao.getMovieById(movieId)
-
     fun getMovies(query: String) : Flow<PagingData<Movie>>{
             return Pager(
                 config = PagingConfig(

@@ -28,15 +28,17 @@ class SearchMovieAdapter : PagingDataAdapter<Movie, SearchMovieAdapter.SearchMov
                 searchCircularProgressbar.progress = currentMovie?.vote_average?.toInt() ?: -1
                 searchProgressValueText.text = currentMovie?.vote_average?.toString() ?: "0"
             }
-
         }
     }
 
     @SuppressLint("SimpleDateFormat")
     private fun getDateFormat(date: String): String {
-        val initDate: Date? = SimpleDateFormat("yyyy-MM-dd").parse(date)
-        val formatter = SimpleDateFormat("dd-MM-yyyy")
-        return formatter.format(initDate!!)
+        if(date != "0" ) {
+            val initDate: Date? = SimpleDateFormat("yyyy-MM-dd").parse(date)
+            val formatter = SimpleDateFormat("dd-MM-yyyy")
+            return formatter.format(initDate!!)
+        }
+        return ""
     }
 
     override fun onBindViewHolder(holder: SearchMovieViewHolder, position: Int) {

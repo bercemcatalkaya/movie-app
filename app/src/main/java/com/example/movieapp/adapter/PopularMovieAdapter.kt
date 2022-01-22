@@ -26,7 +26,6 @@ class PopularMovieAdapter(
                 Glide.with(itemView)
                     .load("$IMAGE_URL${currentMovie?.poster_path}")
                         .into(binding.popularMovieImageView)
-
                 populateFavorite(currentMovie,binding)
             }
         }

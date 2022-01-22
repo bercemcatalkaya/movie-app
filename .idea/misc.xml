@@ -24,6 +24,7 @@
         <entry key="app/src/main/res/layout/fragment_favorite.xml" value="0.19519927536231885" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19519927536231885" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.19519927536231885" />
+        <entry key="app/src/main/res/layout/network_state_item.xml" value="0.21195652173913043" />
         <entry key="app/src/main/res/layout/popular_list_item.xml" value="0.24048913043478262" />
         <entry key="app/src/main/res/layout/search_list_item.xml" value="0.22010869565217392" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.24583333333333332" />
