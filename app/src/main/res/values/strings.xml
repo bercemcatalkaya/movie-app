@@ -6,4 +6,7 @@
     <string name="no_internet_connection_check_your_internet_connection">Check your Internet Connection and Try Again</string>
     <string name="popular">Popular</string>
     <string name="retry">Retry</string>
+    <string name="moviename">MovieName</string>
+    <string name="top_rated">Top Rated</string>
+    <string name="upcoming">Upcoming</string>
 </resources>

@@ -7,43 +7,41 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movieapp.R
-import com.example.movieapp.common.utils.Constants.IMAGE_URL
+import com.example.movieapp.common.utils.Constants
 import com.example.movieapp.data.model.Movie
-import com.example.movieapp.databinding.PopularMovieListItemBinding
+import com.example.movieapp.databinding.TopRatedMovieListItemBinding
 import com.example.movieapp.viewmodel.MovieViewModel
 
-class PopularMovieAdapter(
+class TopRatedMovieAdapter(
     private val viewModel : MovieViewModel
-) : PagingDataAdapter<Movie,PopularMovieAdapter.PopularMovieViewHolder>(DIFF_CALLBACK) {
+) : PagingDataAdapter<Movie, TopRatedMovieAdapter.TopRatedMovieHolder>(DIFF_CALLBACK) {
 
-    interface OnItemClickListener {
-        fun onItemClick(movie: Movie?, status : Boolean)
-    }
-    inner class PopularMovieViewHolder(private val binding: PopularMovieListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class TopRatedMovieHolder(private val binding : TopRatedMovieListItemBinding)
+        :RecyclerView.ViewHolder(binding.root){
 
         fun bind(currentMovie : Movie?) {
             binding.apply {
                 Glide.with(itemView)
-                    .load("$IMAGE_URL${currentMovie?.poster_path}")
-                        .into(binding.popularMovieImageView)
-                popularMovieTitleText.text = currentMovie?.title
-                popularMovieReleaseDateText.text = currentMovie?.release_date
-                populateFavorite(currentMovie,binding)
+                    .load("${Constants.IMAGE_URL}${currentMovie?.poster_path}")
+                    .into(binding.topRatedMovieImageView)
+                topRatedMovieTitleText.text = currentMovie?.title
+                topRatedMovieReleaseDateText.text = currentMovie?.release_date
+                populateTopRatedMovie(currentMovie,binding)
             }
         }
     }
-
-    override fun onBindViewHolder(holder: PopularMovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TopRatedMovieHolder, position: Int) {
         val currentMovie : Movie? = getItem(position)
         holder.bind(currentMovie)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMovieViewHolder {
-        return PopularMovieViewHolder(
-            PopularMovieListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedMovieHolder {
+        return TopRatedMovieHolder(
+            TopRatedMovieListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        )
     }
 
-    private fun populateFavorite(currentMovie: Movie?, binding: PopularMovieListItemBinding){
+    private fun populateTopRatedMovie(currentMovie: Movie?, binding: TopRatedMovieListItemBinding){
         if( viewModel.favoriteMoviesList.value?.find {
                 it.id == currentMovie?.id } == null)
         {
@@ -82,4 +80,5 @@ class PopularMovieAdapter(
             }
         }
     }
+
 }

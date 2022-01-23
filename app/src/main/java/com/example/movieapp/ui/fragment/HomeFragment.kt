@@ -10,6 +10,8 @@ import androidx.fragment.app.viewModels
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.adapter.PopularMovieAdapter
+import com.example.movieapp.adapter.TopRatedMovieAdapter
+import com.example.movieapp.adapter.UpcomingMovieAdapter
 import com.example.movieapp.common.utils.PagingLoadSateAdapter
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.FragmentHomeBinding
@@ -20,6 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     private lateinit var binding : FragmentHomeBinding
     private lateinit var popularMovieAdapter : PopularMovieAdapter
+    private lateinit var topRatedMovieAdapter : TopRatedMovieAdapter
+    private lateinit var upcomingMovieAdapter : UpcomingMovieAdapter
     private val viewModel by viewModels<MovieViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,25 +37,72 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initPopularMovieRecyclerView()
+        initTopRatedMovieRecyclerView()
+        initUpcomingMovieRecyclerView()
+        binding.retryButton.setOnClickListener {
+            binding.apply {
+                popularMovieTextView.isVisible = true
+                topRatedTextView.isVisible = true
+                upcomingMoviesTextView.isVisible = true
+            }
+            popularMovieAdapter.retry()
+            topRatedMovieAdapter.retry()
+            upcomingMovieAdapter.retry()
+        }
+        observeMoviesList()
         managePopularMoviesLoadState()
+        manageTopRatedMoviesLoadState()
+        manageUpcomingMoviesLoadState()
+    }
+
+    private fun observeMoviesList(){
         viewModel.popularMoviesList.observe(viewLifecycleOwner,{
             popularMovieAdapter.submitData(viewLifecycleOwner.lifecycle,it)
         })
 
         viewModel.favoriteMoviesList.observe(viewLifecycleOwner,{
         })
+
+        viewModel.topRatedMoviesList.observe(viewLifecycleOwner,{
+            topRatedMovieAdapter.submitData(viewLifecycleOwner.lifecycle,it)
+        })
+
+        viewModel.upcomingMoviesList.observe(viewLifecycleOwner,{
+            upcomingMovieAdapter.submitData(viewLifecycleOwner.lifecycle,it)
+        })
     }
 
     private fun initPopularMovieRecyclerView() {
         popularMovieAdapter = PopularMovieAdapter(viewModel)
-        binding.popularRecyclerView.apply {
+        binding.popularMoviesRecyclerView.apply {
             adapter = popularMovieAdapter.withLoadStateHeaderAndFooter(
                 header = PagingLoadSateAdapter { popularMovieAdapter.retry() },
-                    footer = PagingLoadSateAdapter { popularMovieAdapter.retry() }
-                    )
-                    layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+                footer = PagingLoadSateAdapter { popularMovieAdapter.retry() }
+            )
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        }
+    }
 
-                }
+    private fun initTopRatedMovieRecyclerView(){
+        topRatedMovieAdapter = TopRatedMovieAdapter(viewModel)
+        binding.topRatedMoviesRecyclerView.apply {
+            adapter = topRatedMovieAdapter.withLoadStateHeaderAndFooter(
+                header = PagingLoadSateAdapter { popularMovieAdapter.retry() },
+                footer = PagingLoadSateAdapter { popularMovieAdapter.retry() }
+            )
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        }
+    }
+
+    private fun initUpcomingMovieRecyclerView(){
+        upcomingMovieAdapter = UpcomingMovieAdapter(viewModel)
+        binding.upcomingMoviesRecyclerView.apply {
+            adapter = upcomingMovieAdapter.withLoadStateHeaderAndFooter(
+                header = PagingLoadSateAdapter { upcomingMovieAdapter.retry() },
+                footer = PagingLoadSateAdapter { upcomingMovieAdapter.retry() }
+            )
+            layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        }
     }
 
     override fun onItemClick(movie: Movie?, status : Boolean) {
@@ -62,12 +113,10 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     }
 
     private fun managePopularMoviesLoadState(){
-        binding.retryButton.setOnClickListener{
-            popularMovieAdapter.retry()
-        }
         popularMovieAdapter.addLoadStateListener { loadState ->
             binding.apply {
-                popularRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                popularMovieTextView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                popularMoviesRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
                 progressBar.isVisible = loadState.source.refresh is LoadState.Loading
                 animationView.isVisible = loadState.source.refresh is LoadState.Error
                 retryButton.isVisible = loadState.source.refresh is LoadState.Error
@@ -75,7 +124,33 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
 
                 if(loadState.source.refresh is LoadState.NotLoading &&
                     loadState.append.endOfPaginationReached && popularMovieAdapter.itemCount < 1 ) {
-                    popularRecyclerView.isVisible = false
+                    popularMoviesRecyclerView.isVisible = false
+                }
+            }
+        }
+    }
+
+    private fun manageTopRatedMoviesLoadState(){
+        topRatedMovieAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+                topRatedTextView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                topRatedMoviesRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                if(loadState.source.refresh is LoadState.NotLoading &&
+                    loadState.append.endOfPaginationReached && topRatedMovieAdapter.itemCount < 1 ) {
+                    topRatedMoviesRecyclerView.isVisible = false
+                }
+            }
+        }
+    }
+
+    private fun manageUpcomingMoviesLoadState(){
+        upcomingMovieAdapter.addLoadStateListener { loadState ->
+            binding.apply {
+                upcomingMoviesTextView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                upcomingMoviesRecyclerView.isVisible = loadState.source.refresh is LoadState.NotLoading
+                if(loadState.source.refresh is LoadState.NotLoading &&
+                    loadState.append.endOfPaginationReached && upcomingMovieAdapter.itemCount < 1 ) {
+                    upcomingMoviesRecyclerView.isVisible = false
                 }
             }
         }

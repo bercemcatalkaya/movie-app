@@ -16,7 +16,7 @@ class MovieRepository @Inject constructor(
     private val movieDao: MovieDao
 ){
 
-    val favoriteMoviesList = movieDao.getPopularMovies()
+    val favoriteMoviesList = movieDao.getFavoriteMovies()
     suspend fun insertMovie(movie: Movie) =
         movieDao.insertMovie(movie)
 

@@ -6,6 +6,8 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.movieapp.common.utils.Constants.POPULAR_URL
 import com.example.movieapp.common.utils.Constants.TAG
+import com.example.movieapp.common.utils.Constants.TOP_RATED_URL
+import com.example.movieapp.common.utils.Constants.UPCOMING_URL
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,12 +31,30 @@ class MovieViewModel @Inject constructor(
     val searchMoviesList : LiveData<PagingData<Movie>>
         get() = searchMovies
 
+    private lateinit var topRatedMovies : LiveData<PagingData<Movie>>
+    val topRatedMoviesList : LiveData<PagingData<Movie>>
+        get() = topRatedMovies
+
+    private lateinit var upcomingMovies : LiveData<PagingData<Movie>>
+    val upcomingMoviesList : LiveData<PagingData<Movie>>
+        get() = upcomingMovies
+
     init{
         getPopularMovies()
+        getTopRatedMovies()
+        getUpcomingMovies()
     }
 
     private fun getPopularMovies() {
         popularMovies = getMoviesOf(POPULAR_URL)
+    }
+
+    private fun getTopRatedMovies() {
+        topRatedMovies = getMoviesOf(TOP_RATED_URL)
+    }
+
+    private fun getUpcomingMovies() {
+        upcomingMovies = getMoviesOf(UPCOMING_URL)
     }
 
     fun searchMovies(query : String) {

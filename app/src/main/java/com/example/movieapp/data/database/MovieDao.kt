@@ -17,7 +17,7 @@ interface MovieDao {
     suspend fun updateMovie(movie: Movie)
 
     @Query("SELECT * FROM movies")
-    fun getPopularMovies() : Flow<List<Movie>>
+    fun getFavoriteMovies() : Flow<List<Movie>>
 
     @Query("SELECT * FROM movies WHERE id = :movieId")
     fun getMovieById(movieId : Int) : LiveData<Movie>
