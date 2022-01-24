@@ -11,9 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.common.utils.Constants
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.SearchListItemBinding
-import com.example.movieapp.ui.fragment.HomeFragmentDirections
-import java.text.SimpleDateFormat
-import java.util.*
+import com.example.movieapp.ui.fragment.SearchFragmentDirections
 
 class SearchMovieAdapter : PagingDataAdapter<Movie, SearchMovieAdapter.SearchMovieViewHolder>(DIFF_CALLBACK){
 
@@ -24,7 +22,7 @@ class SearchMovieAdapter : PagingDataAdapter<Movie, SearchMovieAdapter.SearchMov
                 Glide.with(itemView)
                     .load("${Constants.IMAGE_URL}${currentMovie?.poster_path}")
                     .into(searchMovieImageView)
-                val date = getDateFormat(currentMovie?.release_date ?: "0")
+                val date = currentMovie?.release_date ?: "0"
                 searchMovieReleaseDate.text = "Yayınlanma Tarihi: $date"
                 searchMovieTitleText.text = currentMovie?.title
                 searchCircularProgressbar.progress = currentMovie?.vote_average?.toInt() ?: -1
@@ -33,21 +31,11 @@ class SearchMovieAdapter : PagingDataAdapter<Movie, SearchMovieAdapter.SearchMov
         }
     }
 
-    @SuppressLint("SimpleDateFormat")
-    private fun getDateFormat(date: String): String {
-        if(date != "0" ) {
-            val initDate: Date? = SimpleDateFormat("yyyy-MM-dd").parse(date)
-            val formatter = SimpleDateFormat("dd-MM-yyyy")
-            return formatter.format(initDate!!)
-        }
-        return ""
-    }
-
     override fun onBindViewHolder(holder: SearchMovieViewHolder, position: Int) {
         val currentMovie : Movie? = getItem(position)
         holder.bind(currentMovie)
         holder.itemView.setOnClickListener{
-            val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(currentMovie!!)
+            val action = SearchFragmentDirections.actionSearchFragmentToMovieDetailsFragment(currentMovie!!)
             Navigation.findNavController(it).navigate(action)
         }
     }

@@ -25,7 +25,7 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.FavoriteM
                     .load("${Constants.IMAGE_URL}${currentMovie?.poster_path}")
                     .into(favoriteMovieImageView)
 
-                val date = getDateFormat(currentMovie?.release_date ?: "0")
+                val date = currentMovie?.release_date ?: "0"
                 favoriteMovieReleaseDate.text = "Yayınlanma Tarihi: $date"
                 favoriteMovieTitleText.text = currentMovie?.title
                 circularProgressbar.progress = currentMovie?.vote_average?.toInt() ?: -1
@@ -64,11 +64,4 @@ class FavoriteMovieAdapter : RecyclerView.Adapter<FavoriteMovieAdapter.FavoriteM
             oldItem.id == newItem.id
     }
     var differ = AsyncListDiffer(this, comparator)
-
-    @SuppressLint("SimpleDateFormat")
-    private fun getDateFormat(date : String) : String {
-        val initDate: Date? = SimpleDateFormat("yyyy-MM-dd").parse(date)
-        val formatter = SimpleDateFormat("dd-MM-yyyy")
-        return formatter.format(initDate!!)
-    }
 }
