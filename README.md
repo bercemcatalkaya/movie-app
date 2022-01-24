@@ -6,7 +6,7 @@ See below for more information.✨
 
 
 
-## Technologies
+## Technologies 👀
 
 ✨ [Retrofit](https://square.github.io/retrofit/) & [Gson Converter](https://square.github.io/retrofit/)
 
@@ -28,17 +28,7 @@ See below for more information.✨
 
 ✨ [Recycler View - DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil)
 
-## Arhitecture
-
-See below :
-
-![MVVM](./Images/MVVM.png)
-
-## Video
-
-![Demo](https://user-images.githubusercontent.com/64223309/150855743-24d73ab9-1bc8-4841-a7a1-de81a640e12e.mp4)
-
-## Features
+## Features 👯
 
 ⭐ View the most popular, the top rated and the upcoming movies
 
@@ -48,5 +38,17 @@ See below :
 
 ⭐ View movie details, casts, voting counts and similar movies
 
-✋ Search movies and details 
+✋ Search movies and details
+
+## Arhitecture 🔥
+
+See below :
+
+![MVVM](./Images/MVVM.png)
+
+## Video 😇
+
+![Demo](https://user-images.githubusercontent.com/64223309/150855743-24d73ab9-1bc8-4841-a7a1-de81a640e12e.mp4)
+
+
 
