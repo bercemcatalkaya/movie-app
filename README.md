@@ -27,3 +27,26 @@ See below for more information.✨
 ✨ [View Binding](https://developer.android.com/topic/libraries/view-binding)
 
 ✨ [Recycler View - DiffUtil](https://developer.android.com/reference/androidx/recyclerview/widget/DiffUtil)
+
+## Arhitecture
+
+See below :
+
+![MVVM](./Images/MVVM.png)
+
+## Video
+
+![Demo](https://user-images.githubusercontent.com/64223309/150855743-24d73ab9-1bc8-4841-a7a1-de81a640e12e.mp4)
+
+## Features
+
+⭐ View the most popular, the top rated and the upcoming movies
+
+💛 Save favorite movies
+
+👎 Delete favorite movies
+
+⭐ View movie details, casts, voting counts and similar movies
+
+✋ Search movies and details 
+
