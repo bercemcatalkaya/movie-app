@@ -4,7 +4,8 @@ Used in Kotlin and Android Jetpack😍
 
 See below for more information.✨
 
-
+**NOTE:**
+To get started put your API_Key in utils/Constants class before you run the app. Happy coding 😍
 
 ## Technologies 👀
 
@@ -40,15 +41,11 @@ See below for more information.✨
 
 ✋ Search movies and details
 
-## Arhitecture 🔥
+## Architecture 🔥
 
 See below :
 
 ![MVVM](./Images/MVVM.png)
-
-**NOTE**
-To get started put your API_Key in utils/Constants class before you run the app. Happy coding 😍
-
 
 ## Video 😇
 
