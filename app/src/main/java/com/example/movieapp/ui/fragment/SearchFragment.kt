@@ -46,7 +46,10 @@ class SearchFragment : Fragment() {
                     }
                 }
                 else
+                {
+
                     searchResultAdapter.submitData(lifecycle = viewLifecycleOwner.lifecycle, PagingData.empty())
+                }
                 return true
             }
 

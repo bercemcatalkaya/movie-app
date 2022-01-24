@@ -30,4 +30,5 @@ object Dependencies {
     const val scalableSizeUnitForTexts = "com.intuit.ssp:ssp-android:${Versions.scalableSizeUnitVersion}"
     const val circularProgressBar = "com.mikhaellopez:circularprogressbar:${Versions.circularProgressbarVersion}"
     const val swipeGesture = "com.github.xabaras:RecyclerViewSwipeDecorator:${Versions.swipeGestureVersion}"
+    const val expandableTextView =  "com.ms-square:expandableTextView:${Versions.expandableTextViewVersion}"
 }

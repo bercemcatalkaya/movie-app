@@ -9,15 +9,18 @@ import com.bumptech.glide.Glide
 import com.example.movieapp.R
 import com.example.movieapp.common.utils.Constants
 import com.example.movieapp.data.model.Movie
-import com.example.movieapp.databinding.TopRatedMovieListItemBinding
 import com.example.movieapp.databinding.UpcomingMovieListItemBinding
 import com.example.movieapp.viewmodel.MovieViewModel
 
 class UpcomingMovieAdapter(
-    private val viewModel : MovieViewModel
+    private val viewModel : MovieViewModel,
+    private val listener : OnItemClickListener
 ) :
     PagingDataAdapter<Movie, UpcomingMovieAdapter.UpcomingMovieViewHolder>(DIFF_CALLBACK) {
 
+    interface OnItemClickListener{
+        fun onItemClick(movie : Movie)
+    }
     inner class UpcomingMovieViewHolder(private val binding : UpcomingMovieListItemBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
@@ -36,6 +39,9 @@ class UpcomingMovieAdapter(
     override fun onBindViewHolder(holder: UpcomingMovieViewHolder, position: Int) {
         val currentMovie : Movie? = getItem(position)
         holder.bind(currentMovie)
+        holder.itemView.setOnClickListener{
+           listener.onItemClick(currentMovie!!)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UpcomingMovieViewHolder {

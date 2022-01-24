@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapp.adapter.PopularMovieAdapter
@@ -19,7 +20,9 @@ import com.example.movieapp.viewmodel.MovieViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
+class HomeFragment : Fragment(),
+    PopularMovieAdapter.OnItemClickListener, TopRatedMovieAdapter.OnItemClickListener, UpcomingMovieAdapter.OnItemClickListener
+{
     private lateinit var binding : FragmentHomeBinding
     private lateinit var popularMovieAdapter : PopularMovieAdapter
     private lateinit var topRatedMovieAdapter : TopRatedMovieAdapter
@@ -73,7 +76,7 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     }
 
     private fun initPopularMovieRecyclerView() {
-        popularMovieAdapter = PopularMovieAdapter(viewModel)
+        popularMovieAdapter = PopularMovieAdapter(viewModel,this)
         binding.popularMoviesRecyclerView.apply {
             adapter = popularMovieAdapter.withLoadStateHeaderAndFooter(
                 header = PagingLoadSateAdapter { popularMovieAdapter.retry() },
@@ -84,7 +87,7 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     }
 
     private fun initTopRatedMovieRecyclerView(){
-        topRatedMovieAdapter = TopRatedMovieAdapter(viewModel)
+        topRatedMovieAdapter = TopRatedMovieAdapter(viewModel,this)
         binding.topRatedMoviesRecyclerView.apply {
             adapter = topRatedMovieAdapter.withLoadStateHeaderAndFooter(
                 header = PagingLoadSateAdapter { popularMovieAdapter.retry() },
@@ -95,7 +98,7 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
     }
 
     private fun initUpcomingMovieRecyclerView(){
-        upcomingMovieAdapter = UpcomingMovieAdapter(viewModel)
+        upcomingMovieAdapter = UpcomingMovieAdapter(viewModel,this)
         binding.upcomingMoviesRecyclerView.apply {
             adapter = upcomingMovieAdapter.withLoadStateHeaderAndFooter(
                 header = PagingLoadSateAdapter { upcomingMovieAdapter.retry() },
@@ -105,11 +108,9 @@ class HomeFragment : Fragment(), PopularMovieAdapter.OnItemClickListener{
         }
     }
 
-    override fun onItemClick(movie: Movie?, status : Boolean) {
-        if( status )
-            viewModel.insertMovie(movie!!)
-        else
-            viewModel.deleteMovie(movie!!)
+    override fun onItemClick(movie: Movie) {
+        val action = HomeFragmentDirections.actionHomeFragmentToMovieDetailsFragment(movie)
+        findNavController().navigate(action)
     }
 
     private fun managePopularMoviesLoadState(){

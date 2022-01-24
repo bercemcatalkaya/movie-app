@@ -13,9 +13,13 @@ import com.example.movieapp.databinding.TopRatedMovieListItemBinding
 import com.example.movieapp.viewmodel.MovieViewModel
 
 class TopRatedMovieAdapter(
-    private val viewModel : MovieViewModel
+    private val viewModel : MovieViewModel,
+    private val listener : OnItemClickListener
 ) : PagingDataAdapter<Movie, TopRatedMovieAdapter.TopRatedMovieHolder>(DIFF_CALLBACK) {
 
+    interface OnItemClickListener {
+        fun onItemClick(movie : Movie)
+    }
     inner class TopRatedMovieHolder(private val binding : TopRatedMovieListItemBinding)
         :RecyclerView.ViewHolder(binding.root){
 
@@ -33,6 +37,9 @@ class TopRatedMovieAdapter(
     override fun onBindViewHolder(holder: TopRatedMovieHolder, position: Int) {
         val currentMovie : Movie? = getItem(position)
         holder.bind(currentMovie)
+        holder.itemView.setOnClickListener{
+            listener.onItemClick(currentMovie!!)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopRatedMovieHolder {

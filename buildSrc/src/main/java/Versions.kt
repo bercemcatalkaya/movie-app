@@ -20,4 +20,5 @@ object Versions {
     const val pagingVersion = "3.1.0"
     const val circularProgressbarVersion = "3.1.0"
     const val swipeGestureVersion = "1.3"
+    const val expandableTextViewVersion = "0.1.4"
 }

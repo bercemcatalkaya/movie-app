@@ -4,6 +4,7 @@ apply plugin : Plugins.kotlinKapt
 apply plugin : Plugins.navigationPlugin
 apply plugin : Plugins.hiltPlugin
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-parcelize'
 
 android {
     compileSdk 32
@@ -43,6 +44,7 @@ dependencies {
     implementation Dependencies.appCompat
     implementation Dependencies.materialLib
     implementation Dependencies.constrainLayout
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation Dependencies.junit
     androidTestImplementation Dependencies.androidTest
     androidTestImplementation Dependencies.espressoCore
@@ -92,8 +94,11 @@ dependencies {
     //Paging
     implementation Dependencies.paging
 
-
+    //Circular Progress Bar
     implementation Dependencies.circularProgressBar
+
+    //Expandable Text View
+    implementation Dependencies.expandableTextView
 }
 kapt {
     correctErrorTypes = true

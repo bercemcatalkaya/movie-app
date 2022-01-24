@@ -2,6 +2,7 @@ package com.example.movieapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,14 +11,16 @@ import com.example.movieapp.R
 import com.example.movieapp.common.utils.Constants.IMAGE_URL
 import com.example.movieapp.data.model.Movie
 import com.example.movieapp.databinding.PopularMovieListItemBinding
+import com.example.movieapp.ui.fragment.HomeFragmentDirections
 import com.example.movieapp.viewmodel.MovieViewModel
 
 class PopularMovieAdapter(
-    private val viewModel : MovieViewModel
+    private val viewModel : MovieViewModel,
+    private val listener : OnItemClickListener
 ) : PagingDataAdapter<Movie,PopularMovieAdapter.PopularMovieViewHolder>(DIFF_CALLBACK) {
 
     interface OnItemClickListener {
-        fun onItemClick(movie: Movie?, status : Boolean)
+        fun onItemClick(movie: Movie)
     }
     inner class PopularMovieViewHolder(private val binding: PopularMovieListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -36,6 +39,9 @@ class PopularMovieAdapter(
     override fun onBindViewHolder(holder: PopularMovieViewHolder, position: Int) {
         val currentMovie : Movie? = getItem(position)
         holder.bind(currentMovie)
+        holder.itemView.setOnClickListener{
+            listener.onItemClick(currentMovie!!)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PopularMovieViewHolder {

@@ -46,4 +46,10 @@ class MovieRepository @Inject constructor(
                 SearchMoviePagingDataSource(movieRestInterface,query)
             }).flow
     }
+
+    suspend fun getMovieCredits(movieId : Int, apiKey : String) =
+        movieRestInterface.getMovieCredits(movieId,apiKey)
+
+    suspend fun getSimilarMovies(movieId : Int, apiKey: String) =
+        movieRestInterface.getSimilarMovies(movieId,apiKey,1)
 }
