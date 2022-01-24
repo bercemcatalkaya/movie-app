@@ -46,6 +46,10 @@ See below :
 
 ![MVVM](./Images/MVVM.png)
 
+**NOTE**
+To get started put your API_Key in utils/Constants class before you run the app. Happy coding 😍
+
+
 ## Video 😇
 
 ![Demo](https://user-images.githubusercontent.com/64223309/150855743-24d73ab9-1bc8-4841-a7a1-de81a640e12e.mp4)
